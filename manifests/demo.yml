@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: spinnaker-demo-config
 data:
-  NEW_FEATURE: "false"
+  NEW_FEATURE: "true"
 
 ---
 
