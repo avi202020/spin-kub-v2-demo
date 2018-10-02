@@ -1,0 +1,51 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: spinnaker-demo-gateway
+spec:
+  selector:
+    # Which pods we want to expose as Istio router
+    # This label points to the default one installed from file istio-demo.yaml
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    # Here we specify which Kubernetes service names
+    # we want to serve through this Gateway
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: spinnaker-demo-virtual-service
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - spinnaker-demo-gateway
+  http:
+  - route:
+    - destination:
+        host: spinnaker-demo
+        subset: version-1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: spinnaker-demo
+spec:
+  host: spinnaker-demo
+  subsets:
+  - name: version-1
+    labels:
+      version: spinnaker-demo-version-1
+  - name: version-2
+    labels:
+      version: spinnaker-demo-version-2
+  - name: version-3
+    labels:
+      version: spinnaker-demo-version-3
