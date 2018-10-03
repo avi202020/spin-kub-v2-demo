@@ -24,7 +24,7 @@ metadata:
   name: spinnaker-demo-virtual-service
 spec:
   hosts:
-  - "spinnaker-demo.default.svc.cluster.local"
+  - "*"
   gateways:
   - spinnaker-demo-gateway
   http:
