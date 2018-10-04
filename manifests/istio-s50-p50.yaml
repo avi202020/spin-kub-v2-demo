@@ -19,6 +19,28 @@ spec:
     - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: spinnaker-demo-stg
+spec:
+  host: spinnaker-demo.stg.svc.cluster.local
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: spinnaker-demo-prod
+spec:
+  host: spinnaker-demo.prod.svc.cluster.local
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---
+apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: spinnaker-demo-virtual-service
@@ -30,16 +52,5 @@ spec:
   http:
   - route:
     - destination:
-        host: spinnaker-demo.default.svc.cluster.local
+        host: spinnaker-demo.stg.svc.cluster.local
         subset: v1
----
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: spinnaker-demo
-spec:
-  host: spinnaker-demo.default.svc.cluster.local
-  subsets:
-  - name: v1
-    labels:
-      version: v1
