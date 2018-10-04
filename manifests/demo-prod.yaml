@@ -150,6 +150,9 @@ apiVersion: v1
 metadata:
   namespace: prod
   name: spinnaker-demo
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "80"
 spec:
   selector:
     source: demo
