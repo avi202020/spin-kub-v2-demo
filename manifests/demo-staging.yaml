@@ -31,7 +31,7 @@ spec:
       annotations:
         sidecar.istio.io/status: '{"version":"666176cf119f5520023f04b79663e0d1ebeaf2aece1864b5abf1547879b22129","initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["istio-envoy","istio-certs"],"imagePullSecrets":null}'
         prometheus.io/scrape: "true"
-        prometheus.io/port: "80"
+        prometheus.io/port: "8000"
         prometheus.io/path:  "/metrics"
       creationTimestamp: null
       labels:
