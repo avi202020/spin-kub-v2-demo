@@ -13,8 +13,3 @@ spec:
     - destination:
         host: spinnaker-demo.stg.svc.cluster.local
         subset: v1
-      weight: 50
-    - destination:
-        host: spinnaker-demo.prod.svc.cluster.local
-        subset: v1
-      weight: 50
