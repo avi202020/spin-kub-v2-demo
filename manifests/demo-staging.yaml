@@ -1,7 +1,6 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: spinnaker
     source: demo
@@ -24,7 +23,6 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8000"
         prometheus.io/path:  "/metrics"
-      creationTimestamp: null
       labels:
         app: spinnaker
         source: demo
@@ -37,7 +35,11 @@ spec:
         - containerPort: 8000
         readinessProbe:
           httpGet:
-            path: /
+            path: /healthz
+            port: 8000
+        livenessProbe:
+          httpGet:
+            path: /healthz
             port: 8000
         resources: {}
       - args:
@@ -133,7 +135,6 @@ spec:
         secret:
           optional: true
           secretName: istio.default
-status: {}
 ---
 
 kind: Service

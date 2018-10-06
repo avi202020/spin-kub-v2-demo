@@ -20,7 +20,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// fmt.Printf("Handling %+v\n", r)
-	bs, err := ioutil.ReadFile("/content/index.html")
+	bs, err := ioutil.ReadFile("./content/index.html")
 
 	if err != nil {
 		fmt.Printf("Couldn't read index.html: %v", err)
@@ -28,6 +28,11 @@ func index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	io.WriteString(w, string(bs[:]))
+}
+
+func healthz(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	io.WriteString(w, "ok")
 }
 
 var errRate int64 = 0
@@ -43,6 +48,7 @@ func main() {
 		}
 	}
 	http.HandleFunc("/", prometheus.InstrumentHandlerFunc("index", index))
+	http.HandleFunc("/healthz", prometheus.InstrumentHandlerFunc("healthz", healthz))
 	http.Handle("/metrics", promhttp.Handler())
 	port := ":8000"
 	fmt.Printf("Starting to service on port %s\n", port)
