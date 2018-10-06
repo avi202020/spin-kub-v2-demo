@@ -2,6 +2,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
+  namespace: stg
   name: spinnaker-demo-virtual-service
 spec:
   hosts:
@@ -16,5 +17,5 @@ spec:
       weight: 95
     - destination:
         host: spinnaker-demo-canary.stg.svc.cluster.local
-        subset: v1
+        subset: canary
       weight: 5
