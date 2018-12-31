@@ -1,4 +1,4 @@
-FROM golang:1.11.1 as builder
+FROM golang:1.11.4-alpine3.8 as builder
 # FROM golang:1.11.1-alpine3.8 as builder
 # RUN go get -u github.com/golang/dep/cmd/dep
 
